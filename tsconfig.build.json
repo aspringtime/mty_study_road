@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "src",
+    "outDir": "build",
+    // 测试不进构建产物：只编译 src，rootDir 才能约束输出结构。
+    "types": ["node"],
+
+    // allowImportingTsExtensions 与 emit 互斥（TS5096）。
+    // 编译时改用 rewriteRelativeImportExtensions，把源码里的 `./x.ts`
+    // 自动重写为产物中的 `./x.js`，既保留 node 直跑能力，又能正常 tsc 构建。
+    "allowImportingTsExtensions": false,
+    "rewriteRelativeImportExtensions": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["test/**"]
+}
